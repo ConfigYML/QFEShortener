@@ -14,4 +14,7 @@ public class URLManager {
 	public static boolean containsURL(String newURL) {
 		return urls.containsKey(newURL);
 	}
+	public static String getURL(String newURL) {
+		return urls.get(newURL);
+	}
 }

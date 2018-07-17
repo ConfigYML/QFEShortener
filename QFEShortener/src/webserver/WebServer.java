@@ -18,8 +18,10 @@ public class WebServer {
 		htps = HttpServer.create(new InetSocketAddress(port), 0);
 		htps.createContext("/", new RequestHandler());
 		htps.start();
+		System.out.println("> QFEShortener started!");
 	}
 	public void stop() {
 		htps.stop(0);
+		System.out.println("> QFEShortener stopped!");
 	}
 }

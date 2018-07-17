@@ -18,9 +18,14 @@ public class FileManager {
 			failure.createNewFile();
 			
 			FileWriter fw = new FileWriter(forwarding);
-			fw.write("<html><head><meta http-equiv=\"refresh\" content=\"5; URL=%url%\"><title>Forwarding....</title></head><body>You will be forwarded to %url%</body></html>");
+			fw.write("<html><head><meta http-equiv=\"refresh\" content=\"0; URL=%url%\"><title>Forwarding....</title></head><body>You will be forwarded to %url%</body></html>");
 			fw.flush();
 			fw.close();
+			
+			FileWriter fw1 = new FileWriter(failure);
+			fw1.write("<html><head><title>Error!</title></head><body>The requested shortened url isn't registered yet!</body></html>");
+			fw1.flush();
+			fw1.close();
 		}
 		
 	}
