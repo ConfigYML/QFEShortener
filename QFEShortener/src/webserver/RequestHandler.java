@@ -31,7 +31,6 @@ public class RequestHandler implements HttpHandler {
 					os.close();
 					sc.close();
 				} else {
-					System.out.println("else");
 					Scanner sc = new Scanner(FileManager.getFailureFile());
 					String response = "";
 					while (sc.hasNextLine()) {
