@@ -54,4 +54,15 @@ public class Configuration {
 			e.printStackTrace();
 		}
 	}
+	public void addProperty(String key, String value) {
+		prop.setProperty(key, value);
+		save();
+	}
+	public String getProperty(String key) {
+		if(prop.containsKey(key)) {
+			return prop.getProperty(key);
+		} else {
+			return null;
+		}
+	}
 }
