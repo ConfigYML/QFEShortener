@@ -15,7 +15,7 @@ public class Shortener {
 		for (int i = 0; i < 12; i++) {
 			newurl = newurl + chars[new Random().nextInt(chars.length)];
 		}
-		if (!Main.getURLManager().containsURL(newurl)) {
+		if (!Main.getURLManager().containsURL(newurl) || !Main.getURLManager().isBlocked(newurl)) {
 			Main.getURLManager().addURL(formerURL, newurl);
 		} else {
 			shortURL(formerURL);
