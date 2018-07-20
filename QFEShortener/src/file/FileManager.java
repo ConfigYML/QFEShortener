@@ -3,8 +3,10 @@ package file;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.HashMap;
 
 public class FileManager {
+	private static HashMap<String, File> files = new HashMap<>();
 	public static File getHTMLFolder() {
 		return new File(System.getProperty("user.home") + "/QFE");
 	}
@@ -26,13 +28,31 @@ public class FileManager {
 			fw1.write("<html><head><title>Error!</title></head><body>The requested shortened url isn't registered yet!</body></html>");
 			fw1.flush();
 			fw1.close();
+			
 		}
-		
+		files.put("forwarding", forwarding);
+		files.put("failure", failure);
+		files.put("setup", failure);
 	}
 	public static File getForwardingFile() {
 		return new File(getHTMLFolder().getPath() + "/Forwarding.html");
 	}
 	public static File getFailureFile() {
 		return new File(getHTMLFolder().getPath() + "/Failure.html");
+	}
+	public static File getFileFromName(String name) {
+		if(files.containsKey(name.toLowerCase())) {
+			return files.get(name.toLowerCase());
+		} else {
+			return null;
+		}
+	}
+	public static boolean addToFiles(String name, File f) {
+		if(!files.containsKey(name.toLowerCase())) {
+			files.put(name.toLowerCase(), f);
+			return true;
+		} else {
+			return false;
+		}
 	}
 }

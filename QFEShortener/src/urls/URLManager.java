@@ -1,20 +1,30 @@
 package urls;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class URLManager {
 	private static HashMap<String, String> urls = new HashMap<>();
+	private static ArrayList<String> blocked = new ArrayList<>();
 	
-	public static void addURL(String formerURL, String newURL) {
+	public void addURL(String formerURL, String newURL) {
 		urls.put(newURL, formerURL);
 	}
-	public static void removeURL(String newURL) {
+	public void removeURL(String newURL) {
 		urls.remove(newURL);
 	}
-	public static boolean containsURL(String newURL) {
+	public boolean containsURL(String newURL) {
 		return urls.containsKey(newURL);
 	}
-	public static String getURL(String newURL) {
+	public String getURL(String newURL) {
 		return urls.get(newURL);
+	}
+	
+	
+	public void addDefaultBlockedURL(String url) {
+		blocked.add(url);
+	}
+	public boolean isBlocked(String url) {
+		return blocked.contains(url);
 	}
 }

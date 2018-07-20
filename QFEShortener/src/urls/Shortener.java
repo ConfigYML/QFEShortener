@@ -2,6 +2,8 @@ package urls;
 
 import java.util.Random;
 
+import main.Main;
+
 public class Shortener {
 	private static final String[] chars = new String[] { "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l",
 			"m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "A", "B", "C", "D", "E", "F", "G",
@@ -13,8 +15,8 @@ public class Shortener {
 		for (int i = 0; i < 12; i++) {
 			newurl = newurl + chars[new Random().nextInt(chars.length)];
 		}
-		if (!URLManager.containsURL(newurl)) {
-			URLManager.addURL(formerURL, newurl);
+		if (!Main.getURLManager().containsURL(newurl)) {
+			Main.getURLManager().addURL(formerURL, newurl);
 		} else {
 			shortURL(formerURL);
 		}
