@@ -1,5 +1,6 @@
 package webserver;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Scanner;
@@ -43,16 +44,30 @@ public class RequestHandler implements HttpHandler {
 					sc.close();
 				}
 			} else {
-				Scanner sc = new Scanner(FileManager.getFileFromName(ex.getRequestURI().toString().replace("/", "")));
-				String response = "";
-				while (sc.hasNextLine()) {
-					response = response + sc.nextLine();
+				File f = FileManager.getFileFromName(ex.getRequestURI().toString().replace("/", ""));
+				if(f != null) {
+					Scanner sc = new Scanner(f);
+					String response = "";
+					while (sc.hasNextLine()) {
+						response = response + sc.nextLine();
+					}
+					ex.sendResponseHeaders(200, response.length());
+					OutputStream os = ex.getResponseBody();
+					os.write(response.getBytes());
+					os.close();
+					sc.close();
+				} else {
+					Scanner sc = new Scanner(FileManager.getFailureFile());
+					String response = "";
+					while (sc.hasNextLine()) {
+						response = response + sc.nextLine();
+					}
+					ex.sendResponseHeaders(200, response.length());
+					OutputStream os = ex.getResponseBody();
+					os.write(response.getBytes());
+					os.close();
+					sc.close();
 				}
-				ex.sendResponseHeaders(200, response.length());
-				OutputStream os = ex.getResponseBody();
-				os.write(response.getBytes());
-				os.close();
-				sc.close();
 			}
 		}
 

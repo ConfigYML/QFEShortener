@@ -25,14 +25,13 @@ public class FileManager {
 			fw.close();
 			
 			FileWriter fw1 = new FileWriter(failure);
-			fw1.write("<html><head><title>Error!</title></head><body>The requested shortened url isn't registered yet!</body></html>");
+			fw1.write("<html><head><title>Error!</title></head><body>An error occured. Please check if this is the right url!</body></html>");
 			fw1.flush();
 			fw1.close();
 			
 		}
 		files.put("forwarding", forwarding);
 		files.put("failure", failure);
-		files.put("setup", failure);
 	}
 	public static File getForwardingFile() {
 		return new File(getHTMLFolder().getPath() + "/Forwarding.html");
