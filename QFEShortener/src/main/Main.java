@@ -27,5 +27,8 @@ public class Main {
 	public static URLManager getURLManager() {
 		return um;
 	}
+	public static Configuration getConfiguration() {
+		return cfg;
+	}
 
 }

@@ -15,12 +15,17 @@ public class Configuration {
 	
 	public Configuration() {
 		prop = new Properties();
-		File f = new File(FileManager.getHTMLFolder().getPath() + "/Configuration.conf");
+		if(!FileManager.getConfigFolder().exists()) {
+			FileManager.getConfigFolder().mkdir();
+		}
+		File f = new File(FileManager.getConfigFolder().getPath() + "/Configuration.conf");
 		if(!f.exists()) {
 			try {
 				f.createNewFile();
 				prop.load(new FileInputStream(f));
 				prop.setProperty("Port", "80");
+				setPassword("qfeshortener");
+				setUsername("root");
 				save();
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -47,7 +52,7 @@ public class Configuration {
 	}
 	public void save() {
 		try {
-			prop.store(new FileOutputStream(new File(FileManager.getHTMLFolder().getPath() + "/Configuration.conf")), "");
+			prop.store(new FileOutputStream(new File(FileManager.getConfigFolder().getPath() + "/Configuration.conf")), "");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -63,6 +68,28 @@ public class Configuration {
 			return prop.getProperty(key);
 		} else {
 			return null;
+		}
+	}
+	public void setUsername(String username) {
+		prop.setProperty("Username", username);
+		save();
+	}
+	public void setPassword(String password) {
+		prop.setProperty("Password", password);
+		save();
+	}
+	public String getUsername() {
+		if(prop.containsKey("Username")) {
+			return prop.getProperty("Username");
+		} else {
+			return "root";
+		}
+	}
+	public String getPassword() {
+		if(prop.containsKey("Password")) {
+			return prop.getProperty("Password");
+		} else {
+			return "qfeshortener";
 		}
 	}
 }

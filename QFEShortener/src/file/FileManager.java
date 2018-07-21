@@ -7,6 +7,9 @@ import java.util.HashMap;
 
 public class FileManager {
 	private static HashMap<String, File> files = new HashMap<>();
+	public static File getConfigFolder() {
+		return new File(System.getProperty("user.home") + "/QFEConf");
+	}
 	public static File getHTMLFolder() {
 		return new File(System.getProperty("user.home") + "/QFE");
 	}
@@ -14,10 +17,12 @@ public class FileManager {
 		File dir = new File(System.getProperty("user.home") + "/QFE");
 		File forwarding = new File(getHTMLFolder().getPath() + "/Forwarding.html");
 		File failure = new File(getHTMLFolder().getPath() + "/Failure.html");
+		File admin = new File(getHTMLFolder().getPath() + "/Admin.html");
 		if(!dir.exists()) {
 			dir.mkdir();
 			forwarding.createNewFile();
 			failure.createNewFile();
+			admin.createNewFile();
 			
 			FileWriter fw = new FileWriter(forwarding);
 			fw.write("<html><head><meta http-equiv=\"refresh\" content=\"0; URL=%url%\"><title>Forwarding....</title></head><body>You will be forwarded to %url%</body></html>");
@@ -29,9 +34,14 @@ public class FileManager {
 			fw1.flush();
 			fw1.close();
 			
+			FileWriter fw2 = new FileWriter(admin);
+			fw2.write("<html><head><title>Admin</title></head><body>If you see this, you have successfully logged into the Admin panel.</body></html>");
+			fw2.flush();
+			fw2.close();
 		}
 		files.put("forwarding", forwarding);
 		files.put("failure", failure);
+		files.put("admin", admin);
 	}
 	public static File getForwardingFile() {
 		return new File(getHTMLFolder().getPath() + "/Forwarding.html");
@@ -53,5 +63,8 @@ public class FileManager {
 		} else {
 			return false;
 		}
+	}
+	public static File getAdminFile() {
+		return new File(getHTMLFolder().getPath() + "/Admin.html");
 	}
 }
