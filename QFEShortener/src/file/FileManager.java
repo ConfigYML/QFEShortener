@@ -21,12 +21,14 @@ public class FileManager {
 		File forwarding = new File(getHTMLFolder().getPath() + "/Forwarding.html");
 		File failure = new File(getHTMLFolder().getPath() + "/Failure.html");
 		File admin = new File(getHTMLFolder().getPath() + "/Admin.html");
+		File url_added = new File(getHTMLFolder().getPath() + "/URLAdded.html");
 		if (!dir.exists()) {
 			dir.mkdir();
 			forwarding.createNewFile();
 			failure.createNewFile();
 			admin.createNewFile();
-
+			url_added.createNewFile();
+			
 			FileWriter fw = new FileWriter(forwarding);
 			fw.write(
 					"<html><head><meta http-equiv=\"refresh\" content=\"0; URL=%url%\"><title>Forwarding....</title></head><body>You will be forwarded to %url%</body></html>");
@@ -44,10 +46,16 @@ public class FileManager {
 					"<html><head><title>Admin</title></head><body>If you see this, you have successfully logged into the Admin panel.</body></html>");
 			fw2.flush();
 			fw2.close();
+			
+			FileWriter fw3 = new FileWriter(url_added);
+			fw3.write("<html><head><title>Admin</title></head><body>Your new URL is %newURL%</body></html>");
+			fw3.flush();
+			fw3.close();
 		}
 		files.put("forwarding", forwarding);
 		files.put("failure", failure);
 		files.put("admin", admin);
+		files.put("urladded", url_added);
 	}
 
 	public static File getForwardingFile() {
@@ -77,5 +85,9 @@ public class FileManager {
 
 	public static File getAdminFile() {
 		return new File(getHTMLFolder().getPath() + "/Admin.html");
+	}
+
+	public static File getURLAddedFile() {
+		return new File(getHTMLFolder().getPath() + "/URLAdded.html");
 	}
 }

@@ -20,7 +20,6 @@ public class URLManager {
 		return urls.get(newURL);
 	}
 	
-	
 	public void addDefaultBlockedURL(String url) {
 		blocked.add(url);
 	}

@@ -26,6 +26,8 @@ public class Configuration {
 				prop.setProperty("Port", "80");
 				setPassword("qfeshortener");
 				setUsername("root");
+				setEncryption(0);
+				setLocalDomain("YourDomain.com");
 				save();
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -91,5 +93,35 @@ public class Configuration {
 		} else {
 			return "qfeshortener";
 		}
+	}
+
+	public String getEncryption() {
+		if(prop.containsKey("Encryption")) {
+			if(prop.getProperty("Encryption").equalsIgnoreCase("0")) {
+				return "http://";
+			} else if(prop.getProperty("Encryption").equalsIgnoreCase("1")) {
+				return "https://";
+			} else {
+				return "http://";
+			}
+		} else {
+			return "http://";
+		}
+	}
+	public void setEncryption(int level) {
+		prop.setProperty("Encryption", level + "");
+		save();
+	}
+
+	public String getLocalDomain() {
+		if(prop.containsKey("LocalDomain")) {
+			return prop.getProperty("LocalDomain");
+		} else {
+			return "YourDomain.com";
+		}
+	}
+	public void setLocalDomain(String localDomain) {
+		prop.setProperty("LocalDomain", localDomain);
+		save();
 	}
 }
