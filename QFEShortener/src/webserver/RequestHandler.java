@@ -8,6 +8,7 @@ import java.util.Scanner;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
+import errors.Errors;
 import file.FileManager;
 import main.Main;
 import urls.Shortener;
@@ -25,8 +26,7 @@ public class RequestHandler implements HttpHandler {
 					while (sc.hasNextLine()) {
 						response = response + sc.nextLine();
 					}
-					response = response.replace("%url%",
-							Main.getURLManager().getURL(request));
+					response = response.replace("%url%", Main.getURLManager().getURL(request));
 					ex.sendResponseHeaders(200, response.length());
 					OutputStream os = ex.getResponseBody();
 					os.write(response.getBytes());
@@ -34,34 +34,49 @@ public class RequestHandler implements HttpHandler {
 					sc.close();
 				} else {
 					if (request.startsWith("add")) {
-						String urlToAdd = request.replaceFirst("add", "");
-						String newURL = "";
-						if(!urlToAdd.startsWith("https://") || !urlToAdd.startsWith("http://")) {
-							newURL = Shortener.shortURL("http://" + urlToAdd);
+						if (Main.getURLManager().getURLSadded() >= Main.getConfiguration().getURLlimit()) {
+							Scanner sc = new Scanner(FileManager.getFailureFile());
+							String response = "";
+							while (sc.hasNextLine()) {
+								response = response + sc.nextLine();
+							}
+
+							response = response.replace("%error%", Errors.URL_LIMIT_EXCEEDED.toString());
+
+							ex.sendResponseHeaders(200, response.length());
+							OutputStream os = ex.getResponseBody();
+							os.write(response.getBytes());
+							os.close();
+							sc.close();
 						} else {
-							newURL = Shortener.shortURL(urlToAdd);
+							String urlToAdd = request.replaceFirst("add", "");
+							String newURL = "";
+							if (!urlToAdd.startsWith("https://") || !urlToAdd.startsWith("http://")) {
+								newURL = Shortener.shortURL("http://" + urlToAdd);
+							} else {
+								newURL = Shortener.shortURL(urlToAdd);
+							}
+
+							Scanner sc = new Scanner(FileManager.getURLAddedFile());
+							String response = "";
+							while (sc.hasNextLine()) {
+								response = response + sc.nextLine();
+							}
+							response = response.replace("%newURL%", Main.getConfiguration().getEncryption()
+									+ Main.getConfiguration().getLocalDomain() + "/" + newURL);
+							ex.sendResponseHeaders(200, response.length());
+							OutputStream os = ex.getResponseBody();
+							os.write(response.getBytes());
+							os.close();
+							sc.close();
 						}
-						
-						System.out.println(newURL);
-						
-						Scanner sc = new Scanner(FileManager.getURLAddedFile());
-						String response = "";
-						while (sc.hasNextLine()) {
-							response = response + sc.nextLine();
-						}
-						response = response.replace("%newURL%",
-								Main.getConfiguration().getEncryption() + Main.getConfiguration().getLocalDomain()+ "/" + newURL);
-						ex.sendResponseHeaders(200, response.length());
-						OutputStream os = ex.getResponseBody();
-						os.write(response.getBytes());
-						os.close();
-						sc.close();
 					} else {
 						Scanner sc = new Scanner(FileManager.getFailureFile());
 						String response = "";
 						while (sc.hasNextLine()) {
 							response = response + sc.nextLine();
 						}
+						response = response.replace("%error%", Errors.NO_TARGET_FOUND.toString());
 						ex.sendResponseHeaders(200, response.length());
 						OutputStream os = ex.getResponseBody();
 						os.write(response.getBytes());
@@ -88,6 +103,7 @@ public class RequestHandler implements HttpHandler {
 					while (sc.hasNextLine()) {
 						response = response + sc.nextLine();
 					}
+					response = response.replace("%error%", Errors.NO_TARGET_FOUND.toString());
 					ex.sendResponseHeaders(200, response.length());
 					OutputStream os = ex.getResponseBody();
 					os.write(response.getBytes());

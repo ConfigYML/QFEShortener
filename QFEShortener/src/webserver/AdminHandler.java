@@ -8,6 +8,7 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
 import file.FileManager;
+import main.Main;
 
 public class AdminHandler implements HttpHandler {
 
@@ -19,6 +20,7 @@ public class AdminHandler implements HttpHandler {
 			while (sc.hasNextLine()) {
 				response = response + sc.nextLine();
 			}
+			response = response.replace("%urls%", Main.getURLManager().getURLSadded() + " / " + Main.getConfiguration().getURLlimit());
 			ex.sendResponseHeaders(200, response.length());
 			OutputStream os = ex.getResponseBody();
 			os.write(response.getBytes());

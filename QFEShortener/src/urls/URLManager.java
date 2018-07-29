@@ -26,4 +26,7 @@ public class URLManager {
 	public boolean isBlocked(String url) {
 		return blocked.contains(url);
 	}
+	public int getURLSadded() {
+		return urls.size();
+	}
 }

@@ -28,6 +28,7 @@ public class Configuration {
 				setUsername("root");
 				setEncryption(0);
 				setLocalDomain("YourDomain.com");
+				setURLlimit(1000);
 				save();
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -123,5 +124,21 @@ public class Configuration {
 	public void setLocalDomain(String localDomain) {
 		prop.setProperty("LocalDomain", localDomain);
 		save();
+	}
+	public void setURLlimit(int limit) {
+		prop.setProperty("URLlimit", limit + "");
+		save();
+	}
+	public int getURLlimit() {
+		try {
+			if(prop.containsKey("URLlimit")) {
+				return Integer.parseInt(prop.getProperty("URLlimit"));
+			} else {
+				return 1000;
+			}
+		} catch(NumberFormatException ex) {
+			System.out.println("> The URL-limit cannot be a string. It has to be an Integer.");
+		}
+		return 1000;
 	}
 }

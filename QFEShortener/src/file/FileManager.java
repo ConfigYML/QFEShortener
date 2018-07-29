@@ -37,13 +37,13 @@ public class FileManager {
 
 			FileWriter fw1 = new FileWriter(failure);
 			fw1.write(
-					"<html><head><title>Error!</title></head><body>An error occured. Please check if this is the right url!</body></html>");
+					"<html><head><title>Error!</title></head><body>Error: %error%</body></html>");
 			fw1.flush();
 			fw1.close();
 
 			FileWriter fw2 = new FileWriter(admin);
 			fw2.write(
-					"<html><head><title>Admin</title></head><body>If you see this, you have successfully logged into the Admin panel.</body></html>");
+					"<html><head><title>Admin</title></head><body>If you see this, you have successfully logged into the Admin panel. %urls%</body></html>");
 			fw2.flush();
 			fw2.close();
 			
