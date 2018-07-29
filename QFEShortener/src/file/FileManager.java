@@ -48,7 +48,7 @@ public class FileManager {
 			fw2.close();
 			
 			FileWriter fw3 = new FileWriter(url_added);
-			fw3.write("<html><head><title>Admin</title></head><body>Your new URL is %newURL%</body></html>");
+			fw3.write("<html><head><title>Add URL</title></head><body>Your new URL is %newURL%</body></html>");
 			fw3.flush();
 			fw3.close();
 		}
