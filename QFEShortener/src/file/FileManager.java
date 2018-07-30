@@ -30,11 +30,11 @@ public class FileManager {
 		if (!dir.exists()) {
 			dir.mkdir();
 			CopyOption[] options = new CopyOption[] {StandardCopyOption.REPLACE_EXISTING};
-			Files.copy(Main.class.getResourceAsStream("/Files/Forwarding.html"), forwarding.toPath(), options);
-			Files.copy(Main.class.getResourceAsStream("/Files/Failure.html"), failure.toPath(), options);
-			Files.copy(Main.class.getResourceAsStream("/Files/Admin.html"), admin.toPath(), options);
-			Files.copy(Main.class.getResourceAsStream("/Files/URLAdded.html"), url_added.toPath(), options);
-			Files.copy(Main.class.getResourceAsStream("/Files/Information.html"), information.toPath(), options);
+			Files.copy(Main.class.getResourceAsStream("/html_files/Forwarding.html"), forwarding.toPath(), options);
+			Files.copy(Main.class.getResourceAsStream("/html_files/Failure.html"), failure.toPath(), options);
+			Files.copy(Main.class.getResourceAsStream("/html_files/Admin.html"), admin.toPath(), options);
+			Files.copy(Main.class.getResourceAsStream("/html_files/URLAdded.html"), url_added.toPath(), options);
+			Files.copy(Main.class.getResourceAsStream("/html_files/Information.html"), information.toPath(), options);
 		}
 		files.put("forwarding", forwarding);
 		files.put("failure", failure);
