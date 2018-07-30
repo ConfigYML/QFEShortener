@@ -21,17 +21,7 @@ public class RequestHandler implements HttpHandler {
 		if (!request.equalsIgnoreCase("favicon.ico")) {
 			if (!Main.getURLManager().isBlocked(request)) {
 				if (Main.getURLManager().containsURL(request)) {
-					Scanner sc = new Scanner(FileManager.getForwardingFile());
-					String response = "";
-					while (sc.hasNextLine()) {
-						response = response + sc.nextLine();
-					}
-					response = response.replace("%url%", Main.getURLManager().getURL(request));
-					ex.sendResponseHeaders(200, response.length());
-					OutputStream os = ex.getResponseBody();
-					os.write(response.getBytes());
-					os.close();
-					sc.close();
+					sendExchange(ex, FileManager.getForwardingFile(), "%url%", Main.getURLManager().getURL(request));
 				} else {
 					if (request.startsWith("add")) {
 						if (Main.getURLManager().getURLSadded() >= Main.getConfiguration().getURLlimit()) {
@@ -48,6 +38,8 @@ public class RequestHandler implements HttpHandler {
 									Main.getConfiguration().getEncryption() + Main.getConfiguration().getLocalDomain()
 											+ "/" + newURL);
 						}
+					} else if(request.equalsIgnoreCase("")) {
+						sendExchange(ex, FileManager.getStartFile(), "", "");
 					} else {
 						sendFailure(ex, Errors.NO_TARGET_FOUND);
 					}
