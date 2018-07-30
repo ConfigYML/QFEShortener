@@ -40,7 +40,7 @@ body {
 }
 
 .button {
-	background-color: rgb(169, 175, 186); /* Green */
+	background-color: rgb(169, 175, 186);
 	border: none;
 	color: white;
 	padding: 15px 32px;
@@ -62,6 +62,15 @@ body {
 	font-family: 'Lato', sans-serif;
 	border: none;
 }
+
+#urlmanagement {
+	float: left;
+	width: 45%;
+	background-color: rgb(146, 152, 163);
+	margin-top: 1%;
+	text-align: center;
+	padding-top: 0.5%;
+}
 </style>
 </head>
 <body>
@@ -74,32 +83,74 @@ body {
 	</div>
 	<div id="changeData">
 		<h2>Edit the properties of your server:</h2>
+		<br> <input class="textInput" type="text" name="Username"
+			placeholder="Username" id="username">
+		<button type="button" class="button" onclick="changeUsername();">Change
+			username</button>
+		<br> <input class="textInput" type="text" name="Password"
+			placeholder="Password" id="password">
+		<button type="button" class="button" onclick="changePassword();">Change
+			password</button>
+		<br> <input class="textInput" type="number" name="Port"
+			placeholder="Port" id="port">
+		<button type="button" class="button" onclick="changePort();">Change
+			port</button>
+		<br> <input class="textInput" type="number" name="Encryption"
+			placeholder="Encryption" id="encryption">
+		<button type="button" class="button" onclick="changeEncryption();">Change
+			encryption</button>
+		<br> <input class="textInput" type="text" name="LocalDomain"
+			placeholder="Local domain" id="localdomain">
+		<button type="button" class="button" onclick="changeLocalDomain();">Change
+			local domain</button>
+		<br> <input class="textInput" type="number" name="URLLimit"
+			placeholder="URL-limit" id="urllimit">
+		<button type="button" class="button" onclick="changeURLLimit();">Change
+			URL-limit</button>
 		<br>
-		<input class="textInput" type="text" name="Username" placeholder="Username" id="username"><button type="button" class="button" onclick="changeUsername();">Change username</button><br>
-		<input class="textInput" type="text" name="Password" placeholder="Password" id="password"><button type="button" class="button" onclick="changePassword();">Change password</button><br>
-		<input class="textInput" type="number" name="Port" placeholder="Port" id="port"><button type="button" class="button" onclick="changePort();">Change port</button><br>
-		<input class="textInput" type="number" name="Encryption" placeholder="Encryption" id="encryption"><button type="button" class="button" onclick="changeEncryption();">Change encryption</button><br>
-		<input class="textInput" type="text" name="LocalDomain" placeholder="Local domain" id="localdomain"><button type="button" class="button" onclick="changeLocalDomain();">Change local domain</button><br>
-		<input class="textInput" type="number" name="URLLimit" placeholder="URL-limit" id="urllimit"><button type="button" class="button" onclick="changeURLLimit();">Change URL-limit</button><br>
+	</div>
+	<div id="urlmanagement">
+		<input class="textInput" type="text" name="shortenedURL"
+			placeholder="Shortened URL" id="shortenedURL">
+		<button type="button" class="button" onclick="deleteURL();">Remove
+			URL</button>
+		<br> <input class="textInput" type="text" name="newURL"
+			placeholder="URL to short" id="newURL">
+		<button type="button" class="button" onclick="addURL();">Add
+			URL</button>
 	</div>
 	<script type="text/javascript">
 		function changeUsername() {
-			window.location = "admin/username=" + document.getElementById('username').value;
+			window.location = "admin/username="
+					+ document.getElementById('username').value;
 		}
 		function changePassword() {
-			window.location = "admin/password=" + document.getElementById('password').value;
+			window.location = "admin/password="
+					+ document.getElementById('password').value;
 		}
 		function changePort() {
-			window.location = "admin/port=" + document.getElementById('port').value;
+			window.location = "admin/port="
+					+ document.getElementById('port').value;
 		}
 		function changeEncryption() {
-			window.location = "admin/encryption=" + document.getElementById('encryption').value;
+			window.location = "admin/encryption="
+					+ document.getElementById('encryption').value;
 		}
 		function changeLocalDomain() {
-			window.location = "admin/localdomain=" + document.getElementById('localdomain').value;
+			window.location = "admin/localdomain="
+					+ document.getElementById('localdomain').value;
 		}
 		function changeURLLimit() {
-			window.location = "admin/urllimit=" + document.getElementById('urllimit').value;
+			window.location = "admin/urllimit="
+					+ document.getElementById('urllimit').value;
+		}
+		function deleteURL() {
+			window.location = "admin/remove="
+					+ document.getElementById('shortenedURL').value;
+		}
+		function addURL() {
+			window.location = "add/"
+				+ document.getElementById('newURL').value;
 		}
 	</script>
 </body>
