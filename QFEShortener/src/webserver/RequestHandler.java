@@ -35,19 +35,7 @@ public class RequestHandler implements HttpHandler {
 				} else {
 					if (request.startsWith("add")) {
 						if (Main.getURLManager().getURLSadded() >= Main.getConfiguration().getURLlimit()) {
-							Scanner sc = new Scanner(FileManager.getFailureFile());
-							String response = "";
-							while (sc.hasNextLine()) {
-								response = response + sc.nextLine();
-							}
-
-							response = response.replace("%error%", Errors.URL_LIMIT_EXCEEDED.toString());
-
-							ex.sendResponseHeaders(200, response.length());
-							OutputStream os = ex.getResponseBody();
-							os.write(response.getBytes());
-							os.close();
-							sc.close();
+							sendFailure(ex, Errors.URL_LIMIT_EXCEEDED);
 						} else {
 							String urlToAdd = request.replaceFirst("add", "");
 							String newURL = "";
@@ -56,63 +44,52 @@ public class RequestHandler implements HttpHandler {
 							} else {
 								newURL = Shortener.shortURL(urlToAdd);
 							}
-
-							Scanner sc = new Scanner(FileManager.getURLAddedFile());
-							String response = "";
-							while (sc.hasNextLine()) {
-								response = response + sc.nextLine();
-							}
-							response = response.replace("%newURL%", Main.getConfiguration().getEncryption()
-									+ Main.getConfiguration().getLocalDomain() + "/" + newURL);
-							ex.sendResponseHeaders(200, response.length());
-							OutputStream os = ex.getResponseBody();
-							os.write(response.getBytes());
-							os.close();
-							sc.close();
+							sendExchange(ex, FileManager.getURLAddedFile(), "%newURL%",
+									Main.getConfiguration().getEncryption() + Main.getConfiguration().getLocalDomain()
+											+ "/" + newURL);
 						}
 					} else {
-						Scanner sc = new Scanner(FileManager.getFailureFile());
-						String response = "";
-						while (sc.hasNextLine()) {
-							response = response + sc.nextLine();
-						}
-						response = response.replace("%error%", Errors.NO_TARGET_FOUND.toString());
-						ex.sendResponseHeaders(200, response.length());
-						OutputStream os = ex.getResponseBody();
-						os.write(response.getBytes());
-						os.close();
-						sc.close();
+						sendFailure(ex, Errors.NO_TARGET_FOUND);
 					}
 				}
 			} else {
 				File f = FileManager.getFileFromName(ex.getRequestURI().toString().replace("/", ""));
 				if (f != null) {
-					Scanner sc = new Scanner(f);
-					String response = "";
-					while (sc.hasNextLine()) {
-						response = response + sc.nextLine();
-					}
-					ex.sendResponseHeaders(200, response.length());
-					OutputStream os = ex.getResponseBody();
-					os.write(response.getBytes());
-					os.close();
-					sc.close();
+					sendExchange(ex, f, "", "");
 				} else {
-					Scanner sc = new Scanner(FileManager.getFailureFile());
-					String response = "";
-					while (sc.hasNextLine()) {
-						response = response + sc.nextLine();
-					}
-					response = response.replace("%error%", Errors.NO_TARGET_FOUND.toString());
-					ex.sendResponseHeaders(200, response.length());
-					OutputStream os = ex.getResponseBody();
-					os.write(response.getBytes());
-					os.close();
-					sc.close();
+					sendFailure(ex, Errors.NO_TARGET_FOUND);
 				}
 			}
 		}
 
+	}
+
+	private static void sendExchange(HttpExchange ex, File f, String toReplace, String replacement) throws IOException {
+		Scanner sc = new Scanner(f);
+		String response = "";
+		while (sc.hasNextLine()) {
+			response = response + sc.nextLine();
+		}
+		response = response.replace(toReplace, replacement);
+		ex.sendResponseHeaders(200, response.length());
+		OutputStream os = ex.getResponseBody();
+		os.write(response.getBytes());
+		os.close();
+		sc.close();
+	}
+
+	private static void sendFailure(HttpExchange ex, Errors er) throws IOException {
+		Scanner sc = new Scanner(FileManager.getFailureFile());
+		String response = "";
+		while (sc.hasNextLine()) {
+			response = response + sc.nextLine();
+		}
+		response = response.replace("%error%", er.toString());
+		ex.sendResponseHeaders(200, response.length());
+		OutputStream os = ex.getResponseBody();
+		os.write(response.getBytes());
+		os.close();
+		sc.close();
 	}
 
 }
