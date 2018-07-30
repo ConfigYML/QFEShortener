@@ -121,36 +121,68 @@ body {
 	</div>
 	<script type="text/javascript">
 		function changeUsername() {
-			window.location = "admin/username="
+			if(document.getElementById('username').value == '') {
+				alert("You have to enter a username!")
+			} else {
+				window.location = "admin/username="
 					+ document.getElementById('username').value;
+			}
 		}
 		function changePassword() {
-			window.location = "admin/password="
+			if(document.getElementById('password').value == '') {
+				alert("You have to enter a password!")
+			} else {
+				window.location = "admin/password="
 					+ document.getElementById('password').value;
+			}
 		}
 		function changePort() {
-			window.location = "admin/port="
+			if(document.getElementById('port').value == '') {
+				alert("You have to enter a port!")
+			} else {
+				window.location = "admin/port="
 					+ document.getElementById('port').value;
+			}
 		}
 		function changeEncryption() {
-			window.location = "admin/encryption="
+			if(document.getElementById('encryption').value == '') {
+				alert("You have to enter an encryption-level!")
+			} else {
+				window.location = "admin/encryption="
 					+ document.getElementById('encryption').value;
+			}
 		}
 		function changeLocalDomain() {
-			window.location = "admin/localdomain="
+			if(document.getElementById('localdomain').value == '') {
+				alert("You have to enter a localdomain!")
+			} else {
+				window.location = "admin/localdomain="
 					+ document.getElementById('localdomain').value;
+			}
 		}
 		function changeURLLimit() {
-			window.location = "admin/urllimit="
+			if(document.getElementById('urllimit').value == '') {
+				alert("You have to enter a URL-limit!")
+			} else {
+				window.location = "admin/urllimit="
 					+ document.getElementById('urllimit').value;
+			}
 		}
 		function deleteURL() {
-			window.location = "admin/remove="
+			if(document.getElementById('shortenedURL').value == '') {
+				alert("You have to enter a shortened URL to remove!")
+			} else {
+				window.location = "admin/remove="
 					+ document.getElementById('shortenedURL').value;
+			}
 		}
 		function addURL() {
-			window.location = "add/"
-				+ document.getElementById('newURL').value;
+			if(document.getElementById('newURL').value == '') {
+				alert("You have to enter a URL to short!")
+			} else {
+				window.location = "add/"
+					+ document.getElementById('newURL').value;
+			}
 		}
 	</script>
 </body>
