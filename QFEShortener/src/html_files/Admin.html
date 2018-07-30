@@ -1,6 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <title>Admin</title>
+<link href="https://fonts.googleapis.com/css?family=Lato"
+	rel="stylesheet">
+<style>
+html {
+	width: 100%;
+	height: 100%;
+	font-family: 'Lato', sans-serif;
+}
+
+body {
+	background-color: rgb(122, 128, 137);
+}
+
+#header {
+	padding: 15px;
+	background-color: rgb(71, 74, 79);
+	color: white;
+	font-size: 150%;
+	text-align: center;
+}
+
+#data {
+	float: left;
+	width: 45%;
+	background-color: rgb(146, 152, 163);
+	margin-top: 1%;
+	text-align: center;
+}
+
+#changeData {
+	float: right;
+	width: 45%;
+	background-color: rgb(146, 152, 163);
+	margin-top: 1%;
+	text-align: center;
+}
+
+.button {
+	background-color: rgb(169, 175, 186); /* Green */
+	border: none;
+	color: white;
+	padding: 15px 32px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	margin-bottom: 1%;
+}
+
+.button:hover {
+	background-color: rgb(111, 115, 122);
+}
+
+.textInput {
+	margin-bottom: 1%;
+	margin-right: 1%;
+	background-color: rgb(205, 209, 214);
+	font-family: 'Lato', sans-serif;
+	border: none;
+}
+</style>
 </head>
-<body>If you see this, you have successfully logged into the Admin panel. %urls%</body>
+<body>
+	<div id="header">
+		<h1>Admin Panel</h1>
+	</div>
+	<div id="data">
+		<h2>Current statistics of your QFEShortener:</h2>
+		<br> %stats%
+	</div>
+	<div id="changeData">
+		<h2>Edit the properties of your server:</h2>
+		<br>
+		<input class="textInput" type="text" name="Username" placeholder="Username" id="username"><button type="button" class="button" onclick="changeUsername();">Change username</button><br>
+		<input class="textInput" type="text" name="Password" placeholder="Password" id="password"><button type="button" class="button" onclick="changePassword();">Change password</button><br>
+		<input class="textInput" type="number" name="Port" placeholder="Port" id="port"><button type="button" class="button" onclick="changePort();">Change port</button><br>
+		<input class="textInput" type="number" name="Encryption" placeholder="Encryption" id="encryption"><button type="button" class="button" onclick="changeEncryption();">Change encryption</button><br>
+		<input class="textInput" type="text" name="LocalDomain" placeholder="Local domain" id="localdomain"><button type="button" class="button" onclick="changeLocalDomain();">Change local domain</button><br>
+		<input class="textInput" type="number" name="URLLimit" placeholder="URL-limit" id="urllimit"><button type="button" class="button" onclick="changeURLLimit();">Change URL-limit</button><br>
+	</div>
+	<script type="text/javascript">
+		function changeUsername() {
+			window.location = "admin/username=" + document.getElementById('username').value;
+		}
+		function changePassword() {
+			window.location = "admin/password=" + document.getElementById('password').value;
+		}
+		function changePort() {
+			window.location = "admin/port=" + document.getElementById('port').value;
+		}
+		function changeEncryption() {
+			window.location = "admin/encryption=" + document.getElementById('encryption').value;
+		}
+		function changeLocalDomain() {
+			window.location = "admin/localdomain=" + document.getElementById('localdomain').value;
+		}
+		function changeURLLimit() {
+			window.location = "admin/urllimit=" + document.getElementById('urllimit').value;
+		}
+	</script>
+</body>
 </html>
