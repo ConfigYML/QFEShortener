@@ -178,6 +178,34 @@ public class AdminHandler implements HttpHandler {
 						os.close();
 						sc.close();
 					}
+				} else if(requestRaw.startsWith("remove=")) {
+					if(Main.getURLManager().containsURL(requestRaw.replaceFirst("remove=", ""))) {
+						Main.getURLManager().removeURL(requestRaw.replaceFirst("remove=", ""));
+						Scanner sc = new Scanner(FileManager.getInformationFile());
+						String response = "";
+						while (sc.hasNextLine()) {
+							response = response + sc.nextLine();
+						}
+						response = response.replace("%information%",
+								"The URL '" + requestRaw.replaceFirst("remove=", "") + "' is now removed. It is no longer accessable.");
+						ex.sendResponseHeaders(200, response.length());
+						OutputStream os = ex.getResponseBody();
+						os.write(response.getBytes());
+						os.close();
+						sc.close();
+					} else {
+						Scanner sc = new Scanner(FileManager.getFailureFile());
+						String response = "";
+						while (sc.hasNextLine()) {
+							response = response + sc.nextLine();
+						}
+						response = response.replace("%error%", Errors.NO_SUCH_URL.toString());
+						ex.sendResponseHeaders(200, response.length());
+						OutputStream os = ex.getResponseBody();
+						os.write(response.getBytes());
+						os.close();
+						sc.close();
+					}
 				} else {
 					Scanner sc = new Scanner(FileManager.getFailureFile());
 					String response = "";
