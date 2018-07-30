@@ -47,6 +47,9 @@ public class AdminHandler implements HttpHandler {
 					Main.getConfiguration().setPort(Integer.parseInt(requestRaw.replace("port=", "")));
 					sendExchange(ex, FileManager.getInformationFile(), "%information%",
 							"You changed the encryption to " + requestRaw.replace("port=", "") + ".");
+				} else if(requestRaw.startsWith("urllimit=")) {
+					Main.getConfiguration().setURLlimit(Integer.parseInt(requestRaw.replace("urllimit=", "")));
+					sendExchange(ex, FileManager.getInformationFile(), "%information%", "You changed the URL-limit to " + requestRaw.replace("urllimit=", "") + ".");
 				} else if (requestRaw.startsWith("cupro=")) {
 					if (requestRaw.contains("val=")) {
 						String raw = requestRaw.replaceFirst("cupro=", "");
@@ -93,17 +96,18 @@ public class AdminHandler implements HttpHandler {
 	private String getStatistics() {
 		String toRtn = "";
 
-		toRtn += "URLs used: " +Main.getURLManager().getURLSadded() + " / " + Main.getConfiguration().getURLlimit() + "<br>";
+		toRtn += "URLs used: " + Main.getURLManager().getURLSadded() + " / " + Main.getConfiguration().getURLlimit()
+				+ "<br>";
 		toRtn += "Current username: " + Main.getConfiguration().getUsername() + "<br>";
 		toRtn += "Current password: " + Main.getConfiguration().getPassword() + "<br>";
-		if(Main.getConfiguration().getEncryption().equalsIgnoreCase("https://")) {
+		if (Main.getConfiguration().getEncryption().equalsIgnoreCase("https://")) {
 			toRtn += "Use SSL: true<br>";
 		} else {
 			toRtn += "Use SSL: false<br>";
 		}
 		toRtn += "Current domain displayed: " + Main.getConfiguration().getLocalDomain() + "<br>";
 		toRtn += "Current Port: " + Main.getConfiguration().getPort() + "<br>";
-		
+
 		return toRtn;
 	}
 
