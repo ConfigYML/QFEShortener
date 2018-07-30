@@ -19,8 +19,7 @@ public class AdminHandler implements HttpHandler {
 		String request = ex.getRequestURI().toString().replace("/", "");
 		if (!request.equalsIgnoreCase("favicon.ico")) {
 			if (request.equalsIgnoreCase("admin")) {
-				sendExchange(ex, FileManager.getAdminFile(), "%urls%",
-						Main.getURLManager().getURLSadded() + " / " + Main.getConfiguration().getURLlimit());
+				sendExchange(ex, FileManager.getAdminFile(), "%stats%", getStatistics());
 			} else if (request.startsWith("admin")) {
 				String requestRaw = request.replaceFirst("admin", "");
 				if (requestRaw.startsWith("localdomain=")) {
@@ -89,6 +88,23 @@ public class AdminHandler implements HttpHandler {
 				sendFailure(ex, Errors.NO_TARGET_FOUND);
 			}
 		}
+	}
+
+	private String getStatistics() {
+		String toRtn = "";
+
+		toRtn += "URLs used: " +Main.getURLManager().getURLSadded() + " / " + Main.getConfiguration().getURLlimit() + "<br>";
+		toRtn += "Current username: " + Main.getConfiguration().getUsername() + "<br>";
+		toRtn += "Current password: " + Main.getConfiguration().getPassword() + "<br>";
+		if(Main.getConfiguration().getEncryption().equalsIgnoreCase("https://")) {
+			toRtn += "Use SSL: true<br>";
+		} else {
+			toRtn += "Use SSL: false<br>";
+		}
+		toRtn += "Current domain displayed: " + Main.getConfiguration().getLocalDomain() + "<br>";
+		toRtn += "Current Port: " + Main.getConfiguration().getPort() + "<br>";
+		
+		return toRtn;
 	}
 
 	private static void sendExchange(HttpExchange ex, File f, String toReplace, String replacement) throws IOException {
