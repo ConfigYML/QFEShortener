@@ -158,7 +158,6 @@ public class AdminHandler implements HttpHandler {
 						while (sc.hasNextLine()) {
 							response = response + sc.nextLine();
 						}
-						System.out.println(response);
 						response = response.replace("%information%",
 								"The property '" + requestRaw.replaceFirst("getcupro=", "") + "' has the value '" + Main.getConfiguration().getProperty(requestRaw.replaceFirst("getcupro=", "")) + "'.");
 						ex.sendResponseHeaders(200, response.length());
