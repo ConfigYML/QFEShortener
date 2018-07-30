@@ -22,6 +22,7 @@ public class FileManager {
 		File failure = new File(getHTMLFolder().getPath() + "/Failure.html");
 		File admin = new File(getHTMLFolder().getPath() + "/Admin.html");
 		File url_added = new File(getHTMLFolder().getPath() + "/URLAdded.html");
+		File information = new File(getHTMLFolder().getPath() + "/Information.html");
 		if (!dir.exists()) {
 			dir.mkdir();
 			forwarding.createNewFile();
@@ -51,11 +52,17 @@ public class FileManager {
 			fw3.write("<html><head><title>Add URL</title></head><body>Your new URL is %newURL%</body></html>");
 			fw3.flush();
 			fw3.close();
+			
+			FileWriter fw4 = new FileWriter(information);
+			fw4.write("<html><head><title>Information</title></head><body>%information%</body></html>");
+			fw4.flush();
+			fw4.close();
 		}
 		files.put("forwarding", forwarding);
 		files.put("failure", failure);
 		files.put("admin", admin);
 		files.put("urladded", url_added);
+		files.put("information", information);
 	}
 
 	public static File getForwardingFile() {
@@ -89,5 +96,8 @@ public class FileManager {
 
 	public static File getURLAddedFile() {
 		return new File(getHTMLFolder().getPath() + "/URLAdded.html");
+	}
+	public static File getInformationFile() {
+		return new File(getHTMLFolder().getPath() + "/Information.html");
 	}
 }

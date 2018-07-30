@@ -141,4 +141,7 @@ public class Configuration {
 		}
 		return 1000;
 	}
+	public Properties getProperties() {
+		return prop;
+	}
 }
