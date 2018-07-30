@@ -28,6 +28,7 @@ public class FileManager {
 		File url_added = new File(getHTMLFolder().getPath() + "/URLAdded.html");
 		File information = new File(getHTMLFolder().getPath() + "/Information.html");
 		File start = new File(getHTMLFolder().getPath() + "/Start.html");
+		File url_info = new File(getHTMLFolder().getPath() + "/URLInfo.html");
 		if (!dir.exists()) {
 			dir.mkdir();
 			CopyOption[] options = new CopyOption[] {StandardCopyOption.REPLACE_EXISTING};
@@ -37,6 +38,7 @@ public class FileManager {
 			Files.copy(Main.class.getResourceAsStream("/html_files/URLAdded.html"), url_added.toPath(), options);
 			Files.copy(Main.class.getResourceAsStream("/html_files/Information.html"), information.toPath(), options);
 			Files.copy(Main.class.getResourceAsStream("/html_files/Start.html"), start.toPath(), options);
+			Files.copy(Main.class.getResourceAsStream("/html_files/URLInfo.html"), url_info.toPath(), options);
 		}
 		files.put("forwarding", forwarding);
 		files.put("failure", failure);
@@ -44,6 +46,7 @@ public class FileManager {
 		files.put("urladded", url_added);
 		files.put("information", information);
 		files.put("start", start);
+		files.put("urlinfo", url_info);
 	}
 
 	public static File getForwardingFile() {
@@ -83,5 +86,8 @@ public class FileManager {
 	}
 	public static File getStartFile() {
 		return new File(getHTMLFolder().getPath() + "/Start.html");
+	}
+	public static File getURLInfoFile() {
+		return new File(getHTMLFolder().getPath() + "/URLInfo.html");
 	}
 }

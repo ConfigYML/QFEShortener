@@ -118,6 +118,9 @@ body {
 			placeholder="URL to short" id="newURL">
 		<button type="button" class="button" onclick="addURL();">Add
 			URL</button>
+		<br> <input class="textInput" type="text" name="infoURL"
+			placeholder="URL to get info for" id="infoURL">
+		<button type="button" class="button" onclick="URLinfo();">Get information</button>
 	</div>
 	<script type="text/javascript">
 		function changeUsername() {
@@ -182,6 +185,14 @@ body {
 			} else {
 				window.location = "add/"
 					+ document.getElementById('newURL').value;
+			}
+		}
+		function URLinfo() {
+			if(document.getElementById('infoURL').value == '') {
+				alert("You have to enter a shortened URL!")
+			} else {
+				window.location = "admin/info="
+					+ document.getElementById('infoURL').value;
 			}
 		}
 	</script>
