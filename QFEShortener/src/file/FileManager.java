@@ -1,9 +1,13 @@
 package file;
 
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.CopyOption;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.HashMap;
+
+import main.Main;
 
 public class FileManager {
 	private static HashMap<String, File> files = new HashMap<>();
@@ -25,38 +29,12 @@ public class FileManager {
 		File information = new File(getHTMLFolder().getPath() + "/Information.html");
 		if (!dir.exists()) {
 			dir.mkdir();
-			forwarding.createNewFile();
-			failure.createNewFile();
-			admin.createNewFile();
-			url_added.createNewFile();
-			
-			FileWriter fw = new FileWriter(forwarding);
-			fw.write(
-					"<html><head><meta http-equiv=\"refresh\" content=\"0; URL=%url%\"><title>Forwarding....</title></head><body>You will be forwarded to %url%</body></html>");
-			fw.flush();
-			fw.close();
-
-			FileWriter fw1 = new FileWriter(failure);
-			fw1.write(
-					"<html><head><title>Error!</title></head><body>Error: %error%</body></html>");
-			fw1.flush();
-			fw1.close();
-
-			FileWriter fw2 = new FileWriter(admin);
-			fw2.write(
-					"<html><head><title>Admin</title></head><body>If you see this, you have successfully logged into the Admin panel. %urls%</body></html>");
-			fw2.flush();
-			fw2.close();
-			
-			FileWriter fw3 = new FileWriter(url_added);
-			fw3.write("<html><head><title>Add URL</title></head><body>Your new URL is %newURL%</body></html>");
-			fw3.flush();
-			fw3.close();
-			
-			FileWriter fw4 = new FileWriter(information);
-			fw4.write("<html><head><title>Information</title></head><body>%information%</body></html>");
-			fw4.flush();
-			fw4.close();
+			CopyOption[] options = new CopyOption[] {StandardCopyOption.REPLACE_EXISTING};
+			Files.copy(Main.class.getResourceAsStream("/Files/Forwarding.html"), forwarding.toPath(), options);
+			Files.copy(Main.class.getResourceAsStream("/Files/Failure.html"), failure.toPath(), options);
+			Files.copy(Main.class.getResourceAsStream("/Files/Admin.html"), admin.toPath(), options);
+			Files.copy(Main.class.getResourceAsStream("/Files/URLAdded.html"), url_added.toPath(), options);
+			Files.copy(Main.class.getResourceAsStream("/Files/Information.html"), information.toPath(), options);
 		}
 		files.put("forwarding", forwarding);
 		files.put("failure", failure);
