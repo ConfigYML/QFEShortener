@@ -47,9 +47,10 @@ public class AdminHandler implements HttpHandler {
 					Main.getConfiguration().setPort(Integer.parseInt(requestRaw.replace("port=", "")));
 					sendExchange(ex, FileManager.getInformationFile(), "%information%",
 							"You changed the encryption to " + requestRaw.replace("port=", "") + ".");
-				} else if(requestRaw.startsWith("urllimit=")) {
+				} else if (requestRaw.startsWith("urllimit=")) {
 					Main.getConfiguration().setURLlimit(Integer.parseInt(requestRaw.replace("urllimit=", "")));
-					sendExchange(ex, FileManager.getInformationFile(), "%information%", "You changed the URL-limit to " + requestRaw.replace("urllimit=", "") + ".");
+					sendExchange(ex, FileManager.getInformationFile(), "%information%",
+							"You changed the URL-limit to " + requestRaw.replace("urllimit=", "") + ".");
 				} else if (requestRaw.startsWith("cupro=")) {
 					if (requestRaw.contains("val=")) {
 						String raw = requestRaw.replaceFirst("cupro=", "");
